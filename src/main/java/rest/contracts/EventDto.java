@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ModeratorDto {
+public class EventDto {
 
-    private String Fullname;
+    private String Title;
 
-    private String EventTitle;
+    private String ClientTitle;
 }

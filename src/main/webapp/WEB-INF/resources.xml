@@ -4,9 +4,9 @@
     <!-- see http://tomee.apache.org/datasource-config.html -->
 
     <!-- H2 Database -->
-    <Resource id="ModeratorsDataSource" type="DataSource">
+    <Resource id="EventsDataSource" type="DataSource">
         JdbcDriver = org.h2.Driver
-        JdbcUrl = jdbc:h2:~/h2database/ModeratorDB;AUTO_SERVER=TRUE;
+        JdbcUrl = jdbc:h2:~/h2database/EventDB;AUTO_SERVER=TRUE;
         UserName = as
         Password = as
         InitialSize = 1

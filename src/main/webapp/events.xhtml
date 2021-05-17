@@ -10,7 +10,9 @@
     <h2>Events of client #{eventsForClient.client.title}:</h2>
     <ol>
         <ui:repeat value="#{eventsForClient.client.events}" var="event">
-            <li>#{event.title}</li>
+            <li>
+                <h:link value="#{event.title} #{event.contractNumber}" outcome="eventDetails?eventId=#{event.id}" />
+            </li>
         </ui:repeat>
     </ol>
     <h:form>
@@ -19,6 +21,6 @@
             <f:param name="clientId" value="#{eventsForClient.client.id}" />
         </h:commandButton>
     </h:form>
-    <h:link outcome="/myBatis/clients" value="Back to clients page"/>
+    <h:link outcome="index" value="Back to clients page"/>
 </h:body>
 </html>

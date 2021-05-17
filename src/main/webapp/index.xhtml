@@ -6,16 +6,16 @@
 >
 <head/>
 <body>
-    <h2>Events:</h2>
+    <h2>Clients:</h2>
     <ol>
-        <ui:repeat value="#{events.allEvents}" var="event">
-            <li><h:link value="#{event.title}" outcome="moderators?eventId=#{event.id}" /></li>
+        <ui:repeat value="#{clients.allClients}" var="client">
+            <li><h:link value="#{client.title}" outcome="events?clientId=#{client.id}" /></li>
         </ui:repeat>
     </ol>
     <h:form>
-        <h:inputText value="#{events.eventToCreate.title}" required="true" />
-        <h:commandButton value="Add new event" action="#{events.createEvent}" />
+        <h:inputText value="#{clients.clientToCreate.title}" required="true" />
+        <h:commandButton value="Add new client" action="#{clients.createClient}" />
     </h:form>
-    <h:link outcome="myBatis/events" value="MyBatis implementation"/>
+    <h:link outcome="myBatis/clients" value="MyBatis implementation"/>
 </body>
 </html>

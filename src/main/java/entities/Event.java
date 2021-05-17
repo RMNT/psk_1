@@ -4,42 +4,51 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Event.findAll", query = "select e from Event as e")
+        @NamedQuery(name = "Event.findAll", query = "select m from Event as m")
 })
 @Table(name = "EVENT")
 @Getter @Setter
-public class Event {
-    public Event() {
-
-    }
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Size(max = 50)
+    @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "event")
-    private List<Moderator> moderators = new ArrayList<>();
+    @Column(name="CONTRACTNUMBER")
+    private Integer contractNumber;
+
+    @ManyToOne
+    @JoinColumn(name="CLIENT_ID")
+    private Client client;
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
+    public Event() {
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(title, event.title);
+        return Objects.equals(id, event.id) &&
+                Objects.equals(title, event.title);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(title);
+        return Objects.hash(id, title);
     }
-
 }

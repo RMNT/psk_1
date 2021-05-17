@@ -1,11 +1,11 @@
 package usecases;
 
 
+import entities.Event;
 import lombok.Getter;
 import lombok.Setter;
-import entities.Moderator;
 import interceptors.LoggedInvocation;
-import persistence.ModeratorsDAO;
+import persistence.EventsDAO;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -20,30 +20,30 @@ import java.util.Map;
 @ViewScoped
 @Named
 @Getter @Setter
-public class UpdateModeratorDetails implements Serializable {
+public class UpdateEventDetails implements Serializable {
 
-    private Moderator moderator;
+    private Event event;
 
     @Inject
-    private ModeratorsDAO moderatorsDAO;
+    private EventsDAO eventsDAO;
 
     @PostConstruct
     private void init() {
-        System.out.println("UpdateModeratorDetails INIT CALLED");
+        System.out.println("UpdateEventDetails INIT CALLED");
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Integer moderatorId = Integer.parseInt(requestParameters.get("moderatorId"));
-        this.moderator = moderatorsDAO.findOne(moderatorId);
+        Integer eventId = Integer.parseInt(requestParameters.get("eventId"));
+        this.event = eventsDAO.findOne(eventId);
     }
 
     @Transactional
     @LoggedInvocation
     public String updateContractNumber() {
         try{
-            moderatorsDAO.update(this.moderator);
+            eventsDAO.update(this.event);
         } catch (OptimisticLockException e) {
-            return "/moderatorDetails.xhtml?faces-redirect=true&moderatorId=" + this.moderator.getId() + "&error=optimistic-lock-exception";
+            return "/eventDetails.xhtml?faces-redirect=true&eventId=" + this.event.getId() + "&error=optimistic-lock-exception";
         }
-        return "moderators.xhtml?eventId=" + this.moderator.getEvent().getId() + "&faces-redirect=true";
+        return "events.xhtml?clientId=" + this.event.getClient().getId() + "&faces-redirect=true";
     }
 }

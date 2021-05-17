@@ -2,10 +2,10 @@ package usecases;
 
 import lombok.Getter;
 import lombok.Setter;
-import entities.Moderator;
 import entities.Event;
+import entities.Client;
 import interceptors.LoggedInvocation;
-import persistence.ModeratorsDAO;
+import persistence.ClientsDAO;
 import persistence.EventsDAO;
 
 import javax.annotation.PostConstruct;
@@ -17,33 +17,33 @@ import java.io.Serializable;
 import java.util.Map;
 
 @Model
-public class ModeratorsForEvent implements Serializable {
+public class EventsForClient implements Serializable {
+
+    @Inject
+    private ClientsDAO clientsDAO;
 
     @Inject
     private EventsDAO eventsDAO;
 
-    @Inject
-    private ModeratorsDAO moderatorsDAO;
+    @Getter @Setter
+    private Client client;
 
     @Getter @Setter
-    private Event event;
-
-    @Getter @Setter
-    private Moderator moderatorToCreate = new Moderator();
+    private Event eventToCreate = new Event();
 
     @PostConstruct
     public void init() {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Integer eventId = Integer.parseInt(requestParameters.get("eventId"));
-        this.event = eventsDAO.findOne(eventId);
+        Integer clientId = Integer.parseInt(requestParameters.get("clientId"));
+        this.client = clientsDAO.findOne(clientId);
     }
 
     @Transactional
     @LoggedInvocation
-    public String createModerator() {
-        moderatorToCreate.setEvent(this.event);
-        moderatorsDAO.persist(moderatorToCreate);
-        return "moderators?faces-redirect=true&eventId=" + this.event.getId();
+    public String createEvent() {
+        eventToCreate.setClient(this.client);
+        eventsDAO.persist(eventToCreate);
+        return "events?faces-redirect=true&clientId=" + this.client.getId();
     }
 }

@@ -1,10 +1,9 @@
 package usecases;
 
-import entities.Event;
+import entities.Client;
 import lombok.Getter;
 import lombok.Setter;
-import persistence.EventsDAO;
-import entities.Event;
+import persistence.ClientsDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -13,29 +12,29 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
-public class Events {
+public class Clients {
 
     @Inject
-    private EventsDAO eventsDAO;
+    private ClientsDAO clientsDAO;
 
     @Getter @Setter
-    private Event eventToCreate = new Event();
+    private Client clientToCreate = new Client();
 
     @Getter
-    private List<Event> allEvents;
+    private List<Client> allClients;
 
     @PostConstruct
     public void init(){
-        loadAllEvents();
+        loadAllClients();
     }
 
     @Transactional
-    public String createEvent(){
-        this.eventsDAO.persist(eventToCreate);
+    public String createClient(){
+        this.clientsDAO.persist(clientToCreate);
         return "index?faces-redirect=true";
     }
 
-    private void loadAllEvents(){
-        this.allEvents = eventsDAO.loadAll();
+    private void loadAllClients(){
+        this.allClients = clientsDAO.loadAll();
     }
 }
