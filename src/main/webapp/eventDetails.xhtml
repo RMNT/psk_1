@@ -17,8 +17,8 @@
         <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
     </h:form>
     <h:form>
-        <h:outputText value="#{generateEventContractNumber.contractGenerationStatus}" />
-        <h:commandButton value="Generate event contract?" disabled="#{generateEventContractNumber.contractGenerationRunning}" action="#{generateEventContractNumber.generateNewJerseyNumber()}">
+        <h:outputText value="#{generateEventContractNumber.numberGenerationStatus}" />
+        <h:commandButton value="Generate event contract?" disabled="#{generateEventContractNumber.numberGenerationRunning}" action="#{generateEventContractNumber.generateNewJerseyNumber}">
             <f:param name="eventId" value="#{updateEventDetails.event.id}" />
         </h:commandButton>
     </h:form>
