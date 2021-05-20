@@ -23,6 +23,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="FULLNAME")
     private String title;
 
     @OneToMany(mappedBy = "client")

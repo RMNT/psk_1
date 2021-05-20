@@ -7,16 +7,16 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <h:head/>
 <h:body>
-    <h2>Events of client #{eventsForClient.client.title}:</h2>
+    <h2>Events of client #{clientEvents.client.title}:</h2>
     <ol>
-        <ui:repeat value="#{eventsForClient.client.events}" var="event">
+        <ui:repeat value="#{clientEvents.client.events}" var="event">
             <li>#{event.title}</li>
         </ui:repeat>
     </ol>
     <h:form>
-        <h:inputText a:placeholder="title" value="#{eventsForClient.eventToCreate.title}" required="true" />
-        <h:commandButton value="Add event to the client" action="#{eventsForClient.createEvent}" >
-            <f:param name="clientId" value="#{eventsForClient.client.id}" />
+        <h:inputText a:placeholder="title" value="#{clientEvents.eventToCreate.title}" required="true" />
+        <h:commandButton value="Add event to the client" action="#{clientEvents.createEvent}" >
+            <f:param name="clientId" value="#{clientEvents.client.id}" />
         </h:commandButton>
     </h:form>
     <h:link outcome="/myBatis/clients" value="Back to clients page"/>

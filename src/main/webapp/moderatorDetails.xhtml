@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:b="http://xmlns.jcp.org/jsf/passthrough">
+<head/>
+<body>
+    <h2>Moderator: #{moderatorDetails.moderator.fullname}</h2>
+    <h3>Events:</h3>
+    <ol>
+        <ui:repeat value="#{moderatorDetails.moderator.events}" var="event">
+            <li>
+                <h:link value="#{event.title}" outcome="eventDetails?eventId=#{event.id}"/>
+            </li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:selectOneMenu value="#{moderatorDetails.eventToAssignId}">
+            <f:selectItems value="#{moderatorDetails.freeEvents}" var="event" itemValue="#{event.id}" itemLabel="#{event.title}"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Add event" action="#{moderatorDetails.AssignToNewEvent}">
+            <f:param name="moderatorId" value="#{moderatorDetails.moderator.id}"/>
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="index" value="Back to index"/>
+</body>
+</html>

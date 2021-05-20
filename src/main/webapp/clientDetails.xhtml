@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Client #{clientEvents.client.title}</h2>
+    <h3>Events:</h3>
+    <ol>
+        <ui:repeat value="#{clientEvents.client.events}" var="event">
+            <li><h:link value="#{event.title} #{event.contractNumber}" outcome="eventDetails?eventId=#{event.id}"/>
+            </li>
+            <h:button value="Delete" action="#{events.deleteEvent(event, clientEvents.client.id)}"/>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText value="#{clientEvents.eventToCreate.title}" required="true"/>
+        <h:inputText value="#{clientEvents.eventToCreate.contractNumber}" required="false"/>
+        <h:commandButton value="Add event" action="#{clientEvents.createEvents}" >
+            <f:param name="clientId" value="#{clientEvents.client.id}" />
+        </h:commandButton>
+    </h:form>
+
+    <h:link outcome="index" value="Back to index"/>
+</h:body>
+</html>
