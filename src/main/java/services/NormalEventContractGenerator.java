@@ -1,6 +1,9 @@
 package services;
 
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Random;
 

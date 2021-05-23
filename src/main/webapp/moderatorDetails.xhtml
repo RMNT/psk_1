@@ -6,10 +6,13 @@
        xmlns:h="http://xmlns.jcp.org/jsf/html"
        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
        xmlns:f="http://xmlns.jcp.org/jsf/core"
-       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-<head/>
+       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <link href="./resources/css/styles.css" rel="stylesheet" type="text/cssp"/>
+</h:head>
 <body>
-    <h2>Moderator: #{moderatorDetails.moderator.fullname} #{moderatorDetails.moderator.contractNumber}</h2>
+    <h2>Moderator #{moderatorDetails.moderator.fullname} #{moderatorDetails.moderator.contractNumber}</h2>
     <h3>Events:</h3>
     <ol>
         <ui:repeat value="#{moderatorDetails.moderator.events}" var="event">
@@ -19,13 +22,14 @@
         </ui:repeat>
     </ol>
     <h:form>
-        <h:selectOneMenu value="#{moderatorDetails.eventToAssignId}">
+        <h:selectOneMenu value="#{moderatorDetails.eventToAssignId}" styleClass="selectOne">
             <f:selectItems value="#{moderatorDetails.freeEvents}" var="event" itemValue="#{event.id}" itemLabel="#{event.title}"/>
         </h:selectOneMenu>
         <h:commandButton value="Add event" action="#{moderatorDetails.AssignToNewEvent}">
             <f:param name="moderatorId" value="#{moderatorDetails.moderator.id}"/>
         </h:commandButton>
     </h:form>
+    <br/>
     <h:form>
         <h:outputText value="contract number: "/>
         <h:inputText a:placeholder="enter the value" value="#{moderatorDetails.moderator.contractNumber}" required="true" />

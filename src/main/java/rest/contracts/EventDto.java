@@ -1,6 +1,7 @@
 package rest.contracts;
 
 import entities.Event;
+import entities.Moderator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,7 @@ public class EventDto {
 
     private String ClientTitle;
 
-    private List<ModeratorDto> moderators;
+    private Integer contractNumber;
+
+    private List<Moderator> moderators;
 }
