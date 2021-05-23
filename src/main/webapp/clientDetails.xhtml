@@ -13,10 +13,6 @@
         <ui:repeat value="#{clientEvents.client.events}" var="event">
             <li><h:link value="#{event.title} #{event.contractNumber}" outcome="eventDetails?eventId=#{event.id}"/>
             </li>
-            <h:button value="Delete" action="#{events.deleteEvent}">
-                <f:param name="eventId" value="#{event.id}"/>
-                <f:param name="clientId" value="#{clientEvents.client.id}"/>
-            </h:button>
         </ui:repeat>
     </ol>
     <h:form>

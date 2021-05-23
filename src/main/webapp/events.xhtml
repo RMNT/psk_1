@@ -12,7 +12,6 @@
         <ui:repeat value="#{clientEvents.client.events}" var="event">
             <li>
                 <h:link value="#{event.title} #{event.contractNumber}" outcome="eventDetails?eventId=#{event.id}" />
-                <h:commandButton value="Delete" action="#{events.deleteEvent}"/>
             </li>
         </ui:repeat>
     </ol>

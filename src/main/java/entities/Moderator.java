@@ -29,7 +29,7 @@ public class Moderator implements Serializable {
     @Column(name="CONTRACTNUMBER")
     private Integer contractNumber;
 
-    @ManyToMany//(mappedBy = "moderators")//(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(name = "EVENT_MODERATOR",
             joinColumns = {@JoinColumn(name="MODERATOR_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "EVENT_ID", referencedColumnName = "ID")})

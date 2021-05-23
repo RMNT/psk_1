@@ -9,7 +9,7 @@
     <h2>Clients:</h2>
     <ol style="white-space: nowrap">
         <ui:repeat value="#{clients.allClients}" var="client">
-            <li><h:link value="#{client.title}" outcome="clientDetails?clientId=#{client.id}"/><h:outputFormat rendered="#{client.events.size() eq 0}">*</h:outputFormat></li>
+            <li><h:link value="#{client.title}" outcome="clientDetails?clientId=#{client.id}"/></li>
         </ui:repeat>
     </ol>
     <h:form>
