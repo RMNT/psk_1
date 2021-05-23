@@ -9,5 +9,11 @@
     <interceptors>
         <class>interceptors.MethodLogger</class>
     </interceptors>
+    <alternatives>
+        <class>services.ImportantEventContractGenerator</class>
+    </alternatives>
+    <decorators>
+        <class>decorators.EventContractNumberDecorator</class>
+    </decorators>
 
 </beans>

@@ -8,7 +8,7 @@ import javax.enterprise.inject.Specializes;
 public class ImportantModeratorContractGenerator extends NormalModeratorContractGenerator {
     public Integer generateModeratorNumber() {
         try {
-            Thread.sleep(6); // Simulate intensive work
+            Thread.sleep(6000); // Simulate intensive work
         } catch (InterruptedException e) {
         }
         Integer generatedModerator = (int)((Math.random() * (1000 - 100)) + 100);

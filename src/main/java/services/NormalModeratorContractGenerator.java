@@ -9,7 +9,7 @@ public class NormalModeratorContractGenerator implements Serializable {
 
     public Integer generateModeratorNumber() {
         try {
-            Thread.sleep(3); // Simulate intensive work
+            Thread.sleep(300); // Simulate intensive work
         } catch (InterruptedException e) {
         }
         Integer generatedModerator = new Random().nextInt(100);
