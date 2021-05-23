@@ -25,9 +25,11 @@ public class EventsController {
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") final Integer id) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getById(@PathParam("id") final int id) {
         Event event = eventsDAO.findOne(id);
         if (event == null) {
+            System.out.println("Pasiekia");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 

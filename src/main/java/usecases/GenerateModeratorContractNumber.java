@@ -2,7 +2,7 @@ package usecases;
 
 import interceptors.LoggedInvocation;
 import services.EventContractGenerator;
-import services.NormalEventContractGenerator;
+import services.NormalModeratorContractGenerator;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -15,31 +15,31 @@ import java.util.concurrent.ExecutionException;
 
 @SessionScoped
 @Named
-public class GenerateEventContractNumber implements Serializable {
+public class GenerateModeratorContractNumber implements Serializable {
     @Inject
-    EventContractGenerator eventContractGenerator;
+    NormalModeratorContractGenerator moderatorContractGenerator;
 
-    private CompletableFuture<Integer> eventContractGenerationTask = null;
+    private CompletableFuture<Integer> moderatorContractGenerationTask = null;
 
     @LoggedInvocation
     public String generateNewContractNumber() {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
-        eventContractGenerationTask = CompletableFuture.supplyAsync(() -> eventContractGenerator.generateEventNumber());
-        return  "/eventDetails.xhtml?faces-redirect=true&eventId=" + requestParameters.get("eventId");
+        moderatorContractGenerationTask = CompletableFuture.supplyAsync(() -> moderatorContractGenerator.generateModeratorNumber());
+        return  "/moderatorDetails.xhtml?faces-redirect=true&moderatorId=" + requestParameters.get("moderatorId");
     }
 
     public boolean isNumberGenerationRunning() {
-        return eventContractGenerationTask != null && !eventContractGenerationTask.isDone();
+        return moderatorContractGenerationTask != null && !moderatorContractGenerationTask.isDone();
     }
 
     public String getNumberGenerationStatus() throws ExecutionException, InterruptedException {
-        if (eventContractGenerationTask == null) {
+        if (moderatorContractGenerationTask == null) {
             return null;
         } else if (isNumberGenerationRunning()) {
             return "Number generation in progress";
         }
-        return "Suggested contract number: " + eventContractGenerationTask.get();
+        return "Suggested contract number: " + moderatorContractGenerationTask.get();
     }
 }

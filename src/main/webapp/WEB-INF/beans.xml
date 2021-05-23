@@ -9,4 +9,5 @@
     <interceptors>
         <class>interceptors.MethodLogger</class>
     </interceptors>
+
 </beans>

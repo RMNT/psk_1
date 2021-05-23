@@ -35,13 +35,16 @@ public class Events {
         return "index?faces-redirect=true";
     }
 
-    public String deleteEvent(Event event, Integer clientId) {
+    public String deleteEvent() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        //Map<String, String> paramMap = fc.getExternalContext().getRequestParameterMap();
+        Map<String, String> paramMap = fc.getExternalContext().getRequestParameterMap();
+        Integer eventId = Integer.parseInt(paramMap.get("eventId"));
+        Integer clientId = Integer.parseInt(paramMap.get("clientId"));
         //String clientId = paramMap.get("clientId");
         //return "index?faces-redirect=true";
-        System.out.println(event.getTitle());
-        this.eventsDAO.remove(event);
-        return "clientDetails?clientId="+clientId.toString();
+        //System.out.println(clientId);
+        this.eventsDAO.remove(eventsDAO.findOne(eventId));
+        //return "clientDetails?clientId="+clientId.toString();
+        return "clientDetails?clientId="+clientId;
     }
 }

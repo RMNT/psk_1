@@ -33,7 +33,7 @@ public class Event implements Serializable {
     @JoinColumn(name="CLIENT_ID")
     private Client client;
 
-    @ManyToMany(mappedBy = "events")
+    @ManyToMany(mappedBy = "events", fetch = FetchType.EAGER)
     private List<Moderator> moderators = new ArrayList<>();
 
     @Version

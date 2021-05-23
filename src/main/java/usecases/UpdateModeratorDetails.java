@@ -1,12 +1,10 @@
 package usecases;
 
 
-import entities.Event;
 import entities.Moderator;
 import lombok.Getter;
 import lombok.Setter;
 import interceptors.LoggedInvocation;
-import persistence.EventsDAO;
 import persistence.ModeratorsDAO;
 
 import javax.annotation.PostConstruct;

@@ -1,6 +1,7 @@
 package usecases;
 
 import entities.Event;
+import interceptors.LoggedInvocation;
 import lombok.Getter;
 import lombok.Setter;
 import entities.Moderator;
@@ -12,6 +13,7 @@ import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +48,17 @@ public class ModeratorDetails implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer moderatorId = Integer.parseInt(requestParameters.get("moderatorId"));
         this.moderator = moderatorsDAO.findOne(moderatorId);
+    }
+
+    @Transactional
+    @LoggedInvocation
+    public String updateContractNumber() {
+        try{
+            moderatorsDAO.update(this.moderator);
+        } catch (OptimisticLockException e) {
+            return "/moderatorDetails.xhtml?faces-redirect=true&moderatorId=" + this.moderator.getId() + "&error=optimistic-lock-exception";
+        }
+        return "moderatorDetails.xhtml?moderatorId=" + this.moderator.getId() + "&faces-redirect=true";
     }
 
     @Transactional

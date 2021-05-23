@@ -57,7 +57,4 @@ public class EventModerators implements Serializable
         }
         return "eventDetails?faces-redirect=true&eventId="+ this.event.getId();
     }
-
-
-
 }

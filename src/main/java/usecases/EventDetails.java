@@ -56,7 +56,7 @@ public class EventDetails implements Serializable {
         } catch (OptimisticLockException e) {
             return "/eventDetails.xhtml?faces-redirect=true&eventId=" + this.event.getId() + "&error=optimistic-lock-exception";
         }
-        return "events.xhtml?clientId=" + this.event.getClient().getId() + "&faces-redirect=true";
+        return "eventDetails.xhtml?eventId=" + this.event.getId() + "&faces-redirect=true";
     }
 
     public List<Moderator> getFreeModerators(){
