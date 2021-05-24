@@ -59,4 +59,9 @@
     select ID, TITLE, CLIENT_ID
     from PUBLIC.EVENT
   </select>
+  <select id="selectAllByClient" resultMap="BaseResultMap">
+    select ID, TITLE, CLIENT_ID
+    from PUBLIC.EVENT
+    where CLIENT_ID = #{clientId, jdbcType=INTEGER}
+  </select>
 </mapper>

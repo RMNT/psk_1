@@ -48,4 +48,6 @@ public interface EventMapper {
      * @mbg.generated Sun Mar 03 13:45:02 EET 2019
      */
     int updateByPrimaryKey(Event record);
+
+    List<Event> selectAllByClient(Integer clientId);
 }

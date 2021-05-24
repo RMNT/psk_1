@@ -11,6 +11,11 @@
     <h2>#{eventDetails.event.title} #{eventDetails.event.contractNumber} event</h2>
     <h4>Client: <h:link value="#{eventDetails.event.client.title}" outcome="clientDetails?clientId=#{eventDetails.event.client.id}"/></h4>
     <h2>Moderators:</h2>
+    <ol>
+        <ui:repeat value="#{eventModerators.event.moderators}" var="modarator">
+            <li><h:link value="#{modarator.fullname}" outcome="moderatorDetails?moderatorId=#{moderator.id}"/></li>
+        </ui:repeat>
+    </ol>
     <h:form>
         <h:outputText value="contract number: "/>
         <h:inputText a:placeholder="enter the value" value="#{eventDetails.event.contractNumber}" required="true" />
@@ -25,11 +30,6 @@
             <f:param name="eventId" value="#{eventDetails.event.id}" />
         </h:commandButton>
     </h:form>
-    <ol>
-        <ui:repeat value="#{eventModerators.event.moderators}" var="modarator">
-            <li><h:link value="#{modarator.fullname}" outcome="moderatorDetails?moderatorId=#{moderator.id}"/></li>
-        </ui:repeat>
-    </ol>
     <h:link outcome="index" value="Back to index"/>
 </h:body>
 </html>
