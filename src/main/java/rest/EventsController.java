@@ -1,9 +1,12 @@
 package rest;
 
+import com.google.gson.Gson;
 import entities.Client;
 import entities.Event;
+import entities.Moderator;
 import lombok.Getter;
 import lombok.Setter;
+import persistence.ClientsDAO;
 import persistence.EventsDAO;
 import rest.contracts.EventDto;
 
@@ -16,6 +19,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @ApplicationScoped
 @Path("/events")
@@ -25,6 +29,10 @@ public class EventsController {
     @Inject
     @Setter @Getter
     private EventsDAO eventsDAO;
+
+    @Inject
+    @Getter @Setter
+    private ClientsDAO clientsDAO;
 
     @Inject
     private EntityManager em;
@@ -40,11 +48,11 @@ public class EventsController {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        Gson gson = new Gson();
         EventDto eventDto = new EventDto();
         eventDto.setTitle(event.getTitle());
         eventDto.setClientTitle(event.getClient().getTitle());
         eventDto.setContractNumber(event.getContractNumber());
-        eventDto.setModerators(event.getModerators());
 
         return Response.ok(eventDto).build();
     }
@@ -57,31 +65,36 @@ public class EventsController {
     public Event create(EventDto eventDto) {
         Event event = new Event();
         Client client =new Client();
-        client.setTitle(eventDto.getClientTitle());
-        event.setTitle(eventDto.getTitle());
-        event.setClient(client);
+        //client.setTitle(eventDto.getClientTitle());
+        //event.setTitleventDto.getTitle());
+        //event.setClient(client);
         event.setContractNumber(eventDto.getContractNumber());
-        event.setModerators(eventDto.getModerators());
+        //event.setModerators(eventDto.getModerators());
         eventsDAO.persist(event);
 
         return event;
     }
 
-    @Path("/{id}")
+    @Path("/{eventId}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response update(
-            @PathParam("id") final Integer eventId,
-            EventDto eventData) {
+    public Response update(@PathParam("eventId") final Integer eventId, EventDto eventData) {
+        Event existingEvent = eventsDAO.findOne(eventId);
         try {
-            Event existingEvent = eventsDAO.findOne(eventId);
             if (existingEvent == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
+            Gson gson = new Gson();
+            //existingEvent.setId(eventId);
             existingEvent.setTitle(eventData.getTitle());
+            Client client = new Client();
+            client.setTitle(eventData.getClientTitle());
+            existingEvent.setClient(client);
+            existingEvent.setContractNumber(eventData.getContractNumber());
+            clientsDAO.persist(client);
             eventsDAO.update(existingEvent);
-            return Response.ok().build();
+            return Response.ok(existingEvent.getTitle()).build();
         } catch (OptimisticLockException ole) {
             System.out.println("OPT_LOC");
             return Response.status(Response.Status.CONFLICT).build();

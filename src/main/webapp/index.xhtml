@@ -20,7 +20,7 @@
     <h3>Moderators:</h3>
     <ol>
         <ui:repeat value = "#{moderators.allModerators}" var="moderator">
-            <li><h:link value="#{moderator.fullname}" outcome="moderatorDetails?moderatorId=#{moderator.id}"/> </li>
+            <li><h:link value="#{moderator.fullname}" outcome="moderatorDetails?moderatorId=#{moderator.id}"/><h:outputFormat rendered="#{moderator.events.size() eq 0}" value="*"/></li>
         </ui:repeat>
     </ol>
     <h:form>

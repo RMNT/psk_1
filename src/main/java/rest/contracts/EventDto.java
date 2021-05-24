@@ -5,7 +5,7 @@ import entities.Moderator;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.*;
 
 @Getter @Setter
 public class EventDto {
@@ -16,5 +16,5 @@ public class EventDto {
 
     private Integer contractNumber;
 
-    private List<Moderator> moderators;
+    //private String moderators;
 }
