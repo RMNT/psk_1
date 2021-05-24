@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -64,13 +65,14 @@ public class EventsController {
     @Transactional
     public Event create(EventDto eventDto) {
         Event event = new Event();
-        Client client =new Client();
-        //client.setTitle(eventDto.getClientTitle());
-        //event.setTitleventDto.getTitle());
-        //event.setClient(client);
+        Client client = new Client();
+        client.setTitle(eventDto.getClientTitle());
+        event.setClient(client);
+        event.setTitle(eventDto.getTitle());
         event.setContractNumber(eventDto.getContractNumber());
         //event.setModerators(eventDto.getModerators());
         eventsDAO.persist(event);
+        clientsDAO.persist(client);
 
         return event;
     }
@@ -94,7 +96,7 @@ public class EventsController {
             existingEvent.setContractNumber(eventData.getContractNumber());
             clientsDAO.persist(client);
             eventsDAO.update(existingEvent);
-            return Response.ok(existingEvent.getTitle()).build();
+            return Response.ok(eventData).build();
         } catch (OptimisticLockException ole) {
             System.out.println("OPT_LOC");
             return Response.status(Response.Status.CONFLICT).build();
